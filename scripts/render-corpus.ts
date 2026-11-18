@@ -19,6 +19,10 @@ function toPdf({ meta, blocks }: SourceDoc): Promise<Buffer> {
   const chunks: Buffer[] = []
   doc.on('data', (c: Buffer) => chunks.push(c))
   const done = new Promise<Buffer>((resolve) => doc.on('end', () => resolve(Buffer.concat(chunks))))
+  // Keep a heading on the same page as its first lines, so a clause's page is where its text starts.
+  const keepWithNext = (height: number) => {
+    if (doc.y + height > doc.page.height - doc.page.margins.bottom) doc.addPage()
+  }
 
   for (const b of blocks) {
     if (b.kind === 'title') {
@@ -30,8 +34,12 @@ function toPdf({ meta, blocks }: SourceDoc): Promise<Buffer> {
       doc.font('Helvetica').fontSize(9).fillColor('#555').text(sub.filter(Boolean).join(' · '))
       doc.fillColor('black').moveDown(1.5)
     } else if (b.kind === 'section') {
+      // Section heading + clause heading + ~3 body lines.
+      keepWithNext(80)
       doc.moveDown(0.5).font('Helvetica-Bold').fontSize(13).text(b.text).moveDown(0.4)
     } else if (b.kind === 'clause') {
+      // Clause heading + ~3 body lines.
+      keepWithNext(55)
       doc.font('Helvetica-Bold').fontSize(10.5).text(b.text).moveDown(0.2)
     } else if (b.kind === 'paragraph') {
       doc.font('Helvetica').fontSize(10).text(b.text, { align: 'justify' }).moveDown(0.6)
