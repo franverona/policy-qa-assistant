@@ -11,7 +11,7 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 
 ## M1 Ingestion
 
-- [ ] `m1-corpus-renderer`: corpus source format, PDF/HTML render script, 2 sample docs
+- [x] `m1-corpus-renderer`: corpus source format, PDF/HTML render script, 2 sample docs
 - [ ] `m1-corpus-fixtures`: remaining ~28 docs + generated PDFs (fixtures only)
 - [ ] `m1-schema`: migrations (documents, chunks, HNSW + GIN), db client, migrate script, pgvector service container in CI
 - [ ] `m1-llm-module`: `chat()`/`embed()` behind `LLM_PROVIDER` (ollama, fixture), recording script
