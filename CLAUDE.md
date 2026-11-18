@@ -38,18 +38,18 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 
 ## How we work
 
-- Fran says "Read PLAN.md and DECISIONS.md and continue with the next PR." The next PR is the first unchecked bullet in PLAN.md.
-- Before coding a PR that picks a library, file format, schema, prompt or retrieval approach, propose a plan (ending in a `## Changes` section) and wait for Fran to approve it. Fixtures and mechanical follow-ups go straight to code. If unsure, plan.
+- The user says "Read PLAN.md and DECISIONS.md and continue with the next PR." The next PR is the first unchecked bullet in PLAN.md.
+- Before coding a PR that picks a library, file format, schema, prompt or retrieval approach, propose a plan (ending in a `## Changes` section) and wait for the user to approve it. Fixtures and mechanical follow-ups go straight to code. If unsure, plan.
 - **Never commit to main.** Each PR gets its own branch from an up-to-date main (`git switch main && git pull && git switch -c <branch>`), named as in PLAN.md (e.g. `m2-vector-search`).
 - Keep PRs to ≤ ~400 changed lines, excluding fixtures, lockfiles and generated code. Large fixtures go in their own PR. If a change will be bigger, propose a split before starting.
 - PR titles are conventional and only `feat:`, `fix:`, `chore:`, `docs:` or `test:`. The `PR title` workflow (commitlint) enforces this, and you can check a title locally with `echo "<title>" | pnpm exec commitlint`. Squash merge only.
 - Open PRs with `gh pr create`. The body covers what changed, how to test, trade-offs, and which files are generated.
 - A ruleset on main ("main: CI must pass") requires the `check` and `commitlint` jobs to pass, so a red PR can't be merged. If you rename either job, update the ruleset (`gh api repos/franverona/policy-qa-assistant/rulesets`).
 - Run the checks before opening a PR. If CI fails: `gh run view <id> --log-failed`, then fix on the same branch.
-- Wait for Fran to review and merge before starting the next PR. Fix review comments on the same branch.
+- Wait for the user to review and merge before starting the next PR. Fix review comments on the same branch.
 - PRs that touch retrieval or prompts: run `pnpm eval` locally and record before/after scores in DECISIONS.md.
-- Explain retrieval and LLM decisions briefly; Fran is learning them. **Fran writes the eval scoring logic (`src/evals/score.ts`)**; Claude reviews it.
-- The last PR of a milestone ticks it off in PLAN.md and updates this file and DECISIONS.md. After it's merged, tell Fran it's a good point to start a new session.
+- Explain retrieval and LLM decisions briefly; the user is learning them. **The user writes the eval scoring logic (`src/evals/score.ts`)**; Claude reviews it.
+- The last PR of a milestone ticks it off in PLAN.md and updates this file and DECISIONS.md. After it's merged, tell the user it's a good point to start a new session.
 - gh: always scope `gh issue list` / `gh pr list` with `--json` and only the needed fields.
 
 ## Current milestone
