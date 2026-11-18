@@ -6,9 +6,9 @@ Format: **date — decision.** Why. Alternatives considered. Scores (when releva
 
 ## Eval scores log
 
-| Date | PR | Models (chat / embed / rerank) | hit@5 | MRR | Answer accuracy | IDK precision | IDK recall | Notes |
-|---|---|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — | — | baseline arrives in M4 |
+| Date | PR  | Models (chat / embed / rerank) | hit@5 | MRR | Answer accuracy | IDK precision | IDK recall | Notes                  |
+| ---- | --- | ------------------------------ | ----- | --- | --------------- | ------------- | ---------- | ---------------------- |
+| —    | —   | —                              | —     | —   | —               | —             | —          | baseline arrives in M4 |
 
 ## Records
 
@@ -29,3 +29,9 @@ Format: **date — decision.** Why. Alternatives considered. Scores (when releva
 **2026-11-18 — Evals run locally, CI uses fixtures.** CI never calls a model. It runs the eval runner and scoring against recorded responses as a smoke test. Real evals run locally with `pnpm eval`, and each report records the models that produced it.
 
 **2026-11-18 — No streaming at first.** Structured JSON answers are easier to validate whole. shortcut: revisit if latency hurts the demo.
+
+**2026-11-18 — Config: no defaults in code, checked at server start.** Every value, model names included, comes from `.env`, with `.env.example` as the single place that holds defaults. `src/config.ts` (zod) runs from `instrumentation.ts`, so a missing variable stops the server with a list of what's missing, instead of failing on the first request. It's lazy, so `next build` works in CI without an env file. Alternative: defaults in code (fewer variables to set, but two sources of truth and silent fallbacks).
+
+**2026-11-18 — Pre-commit only formats and scans for secrets.** lint-staged runs Prettier on staged files, then `gitleaks git --pre-commit --staged`. Lint, type-check and tests run in CI, which keeps commits fast. GitHub secret scanning and push protection are a second line of defence, because the repo is public.
+
+**2026-11-18 — CI without Postgres for now.** Nothing touches the database yet. The pgvector service container arrives with the first database code in `m1-schema`.
