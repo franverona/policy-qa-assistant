@@ -43,6 +43,7 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 - Keep PRs to ≤ ~400 changed lines, excluding fixtures, lockfiles and generated code. Large fixtures go in their own PR. If a change will be bigger, propose a split before starting.
 - PR titles are conventional and only `feat:`, `fix:`, `chore:`, `docs:` or `test:`. The `PR title` workflow (commitlint) enforces this, and you can check a title locally with `echo "<title>" | pnpm exec commitlint`. Squash merge only.
 - Open PRs with `gh pr create`. The body covers what changed, how to test, trade-offs, and which files are generated.
+- A ruleset on main ("main: CI must pass") requires the `check` and `commitlint` jobs to pass, so a red PR can't be merged. If you rename either job, update the ruleset (`gh api repos/franverona/policy-qa-assistant/rulesets`).
 - Run the checks before opening a PR. If CI fails: `gh run view <id> --log-failed`, then fix on the same branch.
 - Wait for Fran to review and merge before starting the next PR. Fix review comments on the same branch.
 - PRs that touch retrieval or prompts: run `pnpm eval` locally and record before/after scores in DECISIONS.md.
