@@ -1,14 +1,12 @@
 # policy-qa-assistant
 
-@AGENTS.md
-
 ## Brief
 Fake customer: Harborline Mutual (fictional insurer) with ~2,000 policy PDFs and an internal wiki. Support agents take ~8 minutes to find the right clause. Build an assistant that answers from those sources and **always cites them** (document + page/section). A wrong answer is a compliance risk, so it must say "I don't know" when the sources don't contain the answer. Success is measured by an eval report: retrieval hit-rate, answer accuracy and IDK on unanswerable questions.
 
 This is a public portfolio repo. **Fake data only. Never commit secrets.**
 
 ## Stack
-- Next.js (App Router, TypeScript, pnpm). CLIs in `scripts/` run with `tsx`.
+- Next.js 16 (App Router, TypeScript, pnpm). CLIs in `scripts/` run with `tsx`. Next 16 has breaking changes: check the bundled docs in `node_modules/next/dist/docs/` before using an unfamiliar API.
 - Styling: Tailwind CSS v4 utility classes. No CSS modules, inline styles or component libraries.
 - Postgres 17 + pgvector (docker compose), `postgres` driver, plain `.sql` migrations, no ORM.
 - Models via Ollama on the host (default `LLM_PROVIDER=ollama`): chat `qwen3:8b`, embeddings `nomic-embed-text`, rerank `bge-reranker-base` (transformers.js). All model names are env vars. Anthropic is optional and only for chat. No LLM framework.
