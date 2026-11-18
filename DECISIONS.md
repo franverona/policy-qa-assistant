@@ -6,9 +6,9 @@ Format: **date — decision.** Why. Alternatives considered. Scores (when releva
 
 ## Eval scores log
 
-| Date | PR | Models (chat / embed / rerank) | hit@5 | MRR | Answer accuracy | IDK precision | IDK recall | Notes |
-|---|---|---|---|---|---|---|---|---|
-| — | — | — | — | — | — | — | — | baseline arrives in M4 |
+| Date | PR  | Models (chat / embed / rerank) | hit@5 | MRR | Answer accuracy | IDK precision | IDK recall | Notes                  |
+| ---- | --- | ------------------------------ | ----- | --- | --------------- | ------------- | ---------- | ---------------------- |
+| —    | —   | —                              | —     | —   | —               | —             | —          | baseline arrives in M4 |
 
 ## Records
 
@@ -29,3 +29,13 @@ Format: **date — decision.** Why. Alternatives considered. Scores (when releva
 **2026-11-18 — Evals run locally, CI uses fixtures.** CI never calls a model. It runs the eval runner and scoring against recorded responses as a smoke test. Real evals run locally with `pnpm eval`, and each report records the models that produced it.
 
 **2026-11-18 — No streaming at first.** Structured JSON answers are easier to validate whole. shortcut: revisit if latency hurts the demo.
+
+**2026-11-18 — Config: no defaults in code, checked at server start.** Every value, model names included, comes from `.env`, with `.env.example` as the single place that holds defaults. `src/config.ts` (zod) runs from `instrumentation.ts`, so a missing variable stops the server with a list of what's missing, instead of failing on the first request. It's lazy, so `next build` works in CI without an env file. Alternative: defaults in code (fewer variables to set, but two sources of truth and silent fallbacks).
+
+**2026-11-18 — Pre-commit only formats and scans for secrets.** lint-staged runs Prettier on staged files, then `gitleaks git --pre-commit --staged`. Lint, type-check and tests run in CI, which keeps commits fast. GitHub secret scanning and push protection are a second line of defence, because the repo is public.
+
+**2026-11-18 — Code style copied from blitzr.** Same Prettier config (no semicolons, single quotes, 100 columns, `prettier-plugin-tailwindcss` sorts classes) and the same ESLint presets (Next core-web-vitals + TypeScript, `eslint-config-prettier` last), so Fran's repos read the same. CI runs `pnpm format:check`, which also catches commits that skipped the hook. The PR-title check (commitlint in CI) is copied too, limited to `feat|fix|chore|docs|test`. Squash merges use the PR title as the commit message, so this keeps main's history conventional without a commit-message hook. Left out: `eslint --fix` in lint-staged (the hook here only formats) and blitzr's lockfile-pinned commitlint install (it exists for Dependabot's cooldown; this repo has no Dependabot, and `--frozen-lockfile` already pins).
+
+**2026-11-18 — Failing CI blocks merges.** A repository ruleset on main requires the `check` and `commitlint` jobs (from GitHub Actions) to pass. It doesn't require the branch to be up to date with main: PRs are small and sequential, so the extra rebase step isn't worth it. A ruleset, not classic branch protection, because rulesets are the current API and are visible under Settings → Rules.
+
+**2026-11-18 — CI without Postgres for now.** Nothing touches the database yet. The pgvector service container arrives with the first database code in `m1-schema`.
