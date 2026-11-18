@@ -39,6 +39,7 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 ## How we work
 
 - Fran says "Read PLAN.md and DECISIONS.md and continue with the next PR." The next PR is the first unchecked bullet in PLAN.md.
+- Before coding a PR that picks a library, file format, schema, prompt or retrieval approach, propose a plan (ending in a `## Changes` section) and wait for Fran to approve it. Fixtures and mechanical follow-ups go straight to code. If unsure, plan.
 - **Never commit to main.** Each PR gets its own branch from an up-to-date main (`git switch main && git pull && git switch -c <branch>`), named as in PLAN.md (e.g. `m2-vector-search`).
 - Keep PRs to ≤ ~400 changed lines, excluding fixtures, lockfiles and generated code. Large fixtures go in their own PR. If a change will be bigger, propose a split before starting.
 - PR titles are conventional and only `feat:`, `fix:`, `chore:`, `docs:` or `test:`. The `PR title` workflow (commitlint) enforces this, and you can check a title locally with `echo "<title>" | pnpm exec commitlint`. Squash merge only.
