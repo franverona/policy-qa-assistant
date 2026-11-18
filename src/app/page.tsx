@@ -6,5 +6,5 @@ export default function Home() {
         Ask questions about Harborline Mutual policies. Chat UI arrives in M3.
       </p>
     </main>
-  );
+  )
 }

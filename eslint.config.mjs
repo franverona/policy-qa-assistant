@@ -1,21 +1,23 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
-import prettier from "eslint-config-prettier/flat";
+import { defineConfig, globalIgnores } from 'eslint/config'
+import nextVitals from 'eslint-config-next/core-web-vitals'
+import nextTs from 'eslint-config-next/typescript'
+import prettier from 'eslint-config-prettier'
 
 const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
-  prettier, // turn off stylistic rules; Prettier owns formatting
   {
     rules: {
-      "@typescript-eslint/no-unused-vars": [
-        "error",
-        { varsIgnorePattern: "^_", argsIgnorePattern: "^_" },
+      // `_`-prefixed names mark intentionally unused bindings (e.g. omitting keys in tests).
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
       ],
     },
   },
-  globalIgnores([".next/**", "out/**", "build/**", "next-env.d.ts"]),
-]);
+  // Disables ESLint rules that conflict with Prettier — must be last.
+  prettier,
+  globalIgnores(['.next/**', 'out/**', 'build/**', 'next-env.d.ts']),
+])
 
-export default eslintConfig;
+export default eslintConfig

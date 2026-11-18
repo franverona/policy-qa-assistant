@@ -10,7 +10,8 @@
     "typecheck": "next typegen && tsc --noEmit",
     "test": "vitest run",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "next": "16.4.6",
@@ -29,6 +30,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^17.6.1",
     "prettier": "^3.10.1",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "tailwindcss": "^4.3.5",
     "typescript": "^5",
     "vitest": "^5.1.0"

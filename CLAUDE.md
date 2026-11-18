@@ -31,10 +31,10 @@ Prerequisites: Docker, Node 22, pnpm, Ollama, gitleaks (`brew install gitleaks`;
 ## Checks (run all before opening a PR)
 
 ```
-pnpm lint && pnpm typecheck && pnpm test
+pnpm format:check && pnpm lint && pnpm typecheck && pnpm test
 ```
 
-CI (`.github/workflows/ci.yml`) runs the same three on every PR and on pushes to main. `pnpm format` formats the whole repo.
+CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to main. `pnpm format` formats the whole repo.
 
 ## How we work
 
