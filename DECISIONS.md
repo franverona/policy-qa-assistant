@@ -14,6 +14,8 @@ Format: **date — decision.** Why. Alternatives considered. Scores (when releva
 
 **2026-11-18 — TypeScript / Next.js for everything.** One language end to end, so the UI, API, ingestion and eval runner share types. Python has better PDF/ML tooling, but `unpdf` (pdf.js) gives per-page text, which is all citations need. Alternative: FastAPI + Next.js (two languages, two CIs).
 
+**2026-11-18 — Tailwind CSS v4 for styling.** Quick to build the chat UI with, styles stay next to the markup, and there's no design system to maintain for a demo. Alternatives: CSS modules (more files, slower to iterate) or a component library (more weight than a few screens need).
+
 **2026-11-18 — Postgres + pgvector for both search modes.** Full-text (`tsvector`, GIN) and vector (HNSW cosine) live in one table, so hybrid search is one database and one transaction. Alternatives: a dedicated vector DB plus Elasticsearch (more moving parts, nothing gained at this scale).
 
 **2026-11-18 — Local models through Ollama by default.** No API costs, and the data never leaves the machine (a selling point for an insurer). Chat `qwen3:8b`, embeddings `nomic-embed-text` (768-d), rerank `bge-reranker-base` via transformers.js, sized for an M1 Pro with 16 GB. All model names are env vars. `LLM_PROVIDER=anthropic` is optional and only for chat; Anthropic has no embeddings API, so embeddings always use Ollama.
