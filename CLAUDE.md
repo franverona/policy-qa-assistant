@@ -54,4 +54,4 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 
 ## Current milestone
 
-**M1 Ingestion**: next PR is `m1-corpus-fixtures`. (M0 Setup is done.)
+**M1 Ingestion**: next PR is `m1-schema`. (M0 Setup is done.)
