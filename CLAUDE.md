@@ -25,7 +25,8 @@ Prerequisites: Docker, Node 22, pnpm, Ollama, gitleaks (`brew install gitleaks`;
 
 ## Run
 
-- `make dev`: creates `.env` if needed, starts Postgres and the Next dev server on http://localhost:3000
+- `make dev`: creates `.env` if needed, starts Postgres and migrates, checks Ollama and pulls the chat/embed models, ingests the corpus, then starts the Next dev server on http://localhost:3000
+- `pnpm ingest [--force]`: loads `corpus/` into Postgres; unchanged docs are skipped. Use `--force` after changing the parser or chunker.
 - `make down`: stops containers
 
 ## Checks (run all before opening a PR)
@@ -54,4 +55,4 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 
 ## Current milestone
 
-**M1 Ingestion**: next PR is `m1-ingest`. (M0 Setup is done.)
+**M2 Search**: next PR is `m2-fulltext-search`. (M0 Setup and M1 Ingestion are done.)
