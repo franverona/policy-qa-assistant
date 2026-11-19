@@ -8,6 +8,21 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
+    services:
+      db:
+        image: pgvector/pgvector:pg17
+        env:
+          POSTGRES_USER: policyqa
+          POSTGRES_PASSWORD: policyqa # CI-only throwaway password
+          POSTGRES_DB: policyqa
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U policyqa"
+          --health-interval 2s
+          --health-retries 30
+    env:
+      DATABASE_URL: postgres://policyqa:policyqa@localhost:5432/policyqa
     steps:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6.1.1

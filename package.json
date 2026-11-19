@@ -12,11 +12,13 @@
     "format": "prettier --write .",
     "prepare": "husky",
     "format:check": "prettier --check .",
-    "corpus:render": "tsx scripts/render-corpus.ts"
+    "corpus:render": "tsx scripts/render-corpus.ts",
+    "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts"
   },
   "dependencies": {
     "next": "16.4.6",
     "pdfkit": "^0.20.2",
+    "postgres": "^4.1.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "zod": "^4.6.7"
