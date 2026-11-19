@@ -3,11 +3,14 @@ import { z } from 'zod'
 const schema = z
   .object({
     DATABASE_URL: z.url(),
-    LLM_PROVIDER: z.enum(['ollama', 'anthropic', 'fixture']),
+    LLM_PROVIDER: z.enum(['ollama', 'anthropic', 'fixture', 'record']),
     OLLAMA_BASE_URL: z.url(),
     CHAT_MODEL: z.string().min(1),
     EMBED_MODEL: z.string().min(1),
     EMBED_DIM: z.coerce.number().int().positive(),
+    // Model-specific task prefixes; required but may be empty (e.g. bge-m3 uses none).
+    EMBED_QUERY_PREFIX: z.string(),
+    EMBED_DOC_PREFIX: z.string(),
     RERANK_MODEL: z.string().min(1),
     ANTHROPIC_API_KEY: z.string().optional(),
     ANTHROPIC_MODEL: z.string().optional(),

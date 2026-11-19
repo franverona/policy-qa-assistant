@@ -14,7 +14,7 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 - [x] `m1-corpus-renderer`: corpus source format, PDF/HTML render script, 2 sample docs
 - [x] `m1-corpus-fixtures`: remaining ~28 docs + generated PDFs (fixtures only)
 - [x] `m1-schema`: migrations (documents, chunks, HNSW + GIN), db client, migrate script, pgvector service container in CI
-- [ ] `m1-llm-module`: `chat()`/`embed()` behind `LLM_PROVIDER` (ollama, fixture), recording script
+- [x] `m1-llm-module`: `chat()`/`embed()` behind `LLM_PROVIDER` (ollama, fixture), recording script
 - [ ] `m1-parse-chunk`: PDF (per page) and HTML (per section) parsers, clause-aware chunker, tests
 - [ ] `m1-ingest`: idempotent `pnpm ingest`, app service in compose, `make dev` pulls models and seeds
 

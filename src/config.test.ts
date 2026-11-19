@@ -8,6 +8,8 @@ const valid = {
   CHAT_MODEL: 'qwen3:8b',
   EMBED_MODEL: 'nomic-embed-text',
   EMBED_DIM: '768',
+  EMBED_QUERY_PREFIX: 'search_query: ',
+  EMBED_DOC_PREFIX: '',
   RERANK_MODEL: 'Xenova/bge-reranker-base',
 }
 
