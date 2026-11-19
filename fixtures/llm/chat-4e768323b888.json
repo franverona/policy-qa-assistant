@@ -1,0 +1,51 @@
+{
+  "model": "qwen3:8b",
+  "request": {
+    "messages": [
+      {
+        "role": "system",
+        "content": "You answer insurance questions in one short sentence."
+      },
+      {
+        "role": "user",
+        "content": "What is a deductible?"
+      }
+    ],
+    "format": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "type": "object",
+      "properties": {
+        "answer": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "answer"
+      ],
+      "additionalProperties": false
+    },
+    "stream": false,
+    "think": false,
+    "options": {
+      "temperature": 0
+    }
+  },
+  "response": {
+    "model": "qwen3:8b",
+    "created_at": "2026-11-19T08:57:30.043584Z",
+    "message": {
+      "role": "assistant",
+      "content": "{ \"answer\": \"A deductible is the amount you must pay out-of-pocket before your insurance coverage begins to pay for eligible expenses.\" }"
+    },
+    "done": true,
+    "done_reason": "stop",
+    "total_duration": 1392562834,
+    "load_duration": 4741750,
+    "prompt_eval_count": 35,
+    "prompt_eval_cached_count": 34,
+    "prompt_eval_duration": 159400000,
+    "eval_count": 29,
+    "eval_duration": 1221661000
+  },
+  "recordedAt": "2026-11-19T08:57:30.050Z"
+}

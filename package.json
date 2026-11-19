@@ -13,7 +13,8 @@
     "prepare": "husky",
     "format:check": "prettier --check .",
     "corpus:render": "tsx scripts/render-corpus.ts",
-    "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts"
+    "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
+    "llm:smoke": "tsx --env-file-if-exists=.env scripts/llm-smoke.ts"
   },
   "dependencies": {
     "next": "16.4.6",
