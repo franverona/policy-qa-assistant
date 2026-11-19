@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "corpus:render": "tsx scripts/render-corpus.ts",
     "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
+    "ingest": "tsx --env-file-if-exists=.env scripts/ingest.ts",
     "llm:smoke": "tsx --env-file-if-exists=.env scripts/llm-smoke.ts"
   },
   "dependencies": {
