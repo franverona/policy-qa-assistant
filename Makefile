@@ -8,8 +8,9 @@ dev: .env db
 .env:
 	cp .env.example .env
 
-db:
+db: .env
 	docker compose up -d --wait db
+	pnpm db:migrate
 
 down:
 	docker compose down
