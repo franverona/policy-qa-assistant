@@ -1,16 +1,11 @@
 import { cpSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
-import postgres from 'postgres'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
-import { migrate, MIGRATE_LOCK } from '../db/migrate'
+import { testSchema } from '../db/test-schema'
 import { ingest } from './ingest'
 
-const url = process.env.DATABASE_URL
-// Own schema, so the test never touches the dev database's documents/chunks.
-const sql = url
-  ? postgres(url, { onnotice: () => {}, connection: { search_path: 'ingest_test, public' } })
-  : undefined
+const schema = testSchema('ingest_test')
 
 let calls = 0
 const fakeEmbed = async (texts: string[]) => {
@@ -21,22 +16,10 @@ const opts = { embedModel: 'fake', embedDim: 768 }
 const DOCS = 30
 
 // Needs a real Postgres + pgvector: CI provides one; locally run with DATABASE_URL set.
-describe.skipIf(!sql)('ingest', { timeout: 60_000 }, () => {
-  const db = sql!
-  beforeAll(async () => {
-    await db`drop schema if exists ingest_test cascade`
-    await db`create schema ingest_test`
-    // The extension must live in public: dropping ingest_test would otherwise drop it too.
-    await db.begin(async (tx) => {
-      await tx`select pg_advisory_xact_lock(${MIGRATE_LOCK})`
-      await tx`create extension if not exists vector schema public`
-    })
-    await migrate(db)
-  })
-  afterAll(async () => {
-    await db`drop schema if exists ingest_test cascade`
-    await db.end()
-  })
+describe.skipIf(!schema)('ingest', { timeout: 60_000 }, () => {
+  const { sql: db, setup, teardown } = schema!
+  beforeAll(setup)
+  afterAll(teardown)
 
   it('ingests every doc with citable chunks', async () => {
     const r = await ingest(db, fakeEmbed, opts)
