@@ -48,7 +48,10 @@ export async function ingest(sql: Sql, embed: Embed, opts: Options) {
       meta.type === 'policy'
         ? await parsePdf(new Uint8Array(rendered))
         : parseHtml(rendered.toString('utf8'))
-    const chunks = chunk(sections)
+    // The policy code (HM-END-04) is only in the PDF's skipped "Policy form" line; prefixing it
+    // puts it in every chunk's tsv and embedding, so a code search finds the policy itself.
+    const prefix = meta.code ? `${meta.code} · ` : ''
+    const chunks = chunk(sections).map((c) => ({ ...c, headingPath: prefix + c.headingPath }))
     // Embed before opening the transaction, so an Ollama failure leaves the old version intact.
     const vectors = chunks.length
       ? await embed(
