@@ -36,6 +36,22 @@ describe.skipIf(!schema)('fullTextSearch', { timeout: 60_000 }, () => {
     for (const h of hits) expect(`${h.headingPath} ${h.content}`).not.toMatch(/backup/i)
   })
 
+  it('finds a policy by its exact code', async () => {
+    const hits = await search('HM-END-04')
+    expect(hits[0].documentId).toBe('end-water-backup')
+    expect(hits[0].headingPath).toMatch(/^HM-END-04 · /)
+    // A phrase match: every hit contains this exact code, not just HM / END / 06.
+    const auto = await search('HM-PA-END-06')
+    expect(auto.map((h) => h.documentId)).toContain('end-auto-loan-lease-gap')
+    for (const h of auto) expect(`${h.headingPath} ${h.content}`).toContain('HM-PA-END-06')
+  })
+
+  it('leaves wiki heading paths unprefixed', async () => {
+    const [row] = await sql`select heading_path from chunks where document_id = 'wiki-auto-claims'
+                            limit 1`
+    expect(row.heading_path).not.toMatch(/·/)
+  })
+
   it('returns nothing for a query of stop words', async () => {
     expect(await search('what is the')).toHaveLength(0)
   })
