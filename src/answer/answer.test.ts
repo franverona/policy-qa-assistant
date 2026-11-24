@@ -47,6 +47,7 @@ describe('answer', () => {
         headingPath: 'HM-11 · Doc › Clause',
         page: null,
         anchor: 'clause-11',
+        content: 'text 11',
       },
       {
         n: 1,
@@ -56,6 +57,7 @@ describe('answer', () => {
         headingPath: 'HM-10 · Doc › Clause',
         page: 1,
         anchor: null,
+        content: 'text 10',
       },
     ])
     // Only the top 5 are sent to the model.

@@ -26,11 +26,11 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 - [x] `m2-hybrid-rrf`: Reciprocal Rank Fusion
 - [x] `m2-rerank`: cross-encoder rerank + `/search` debug page
 
-## M3 Chat with citations
+## M3 Chat with citations ✅
 
 - [x] `m3-answer-pipeline`: prompt, structured output, citation validation, three IDK gates, `/api/ask`
 - [x] `m3-doc-viewer`: `/docs/[id]` serves PDFs (`#page=N`) and wiki pages (`#anchor`)
-- [ ] `m3-chat-ui`: chat page, inline citation chips, source side panel
+- [x] `m3-chat-ui`: chat page, inline citation chips, source side panel
 
 ## M4 Evals
 

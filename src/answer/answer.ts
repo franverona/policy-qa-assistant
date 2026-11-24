@@ -21,7 +21,7 @@ export const IDK_MESSAGE = "I don't know: the policy documents and wiki don't co
 
 export type Citation = Pick<
   RerankedHit,
-  'chunkId' | 'documentId' | 'title' | 'headingPath' | 'page' | 'anchor'
+  'chunkId' | 'documentId' | 'title' | 'headingPath' | 'page' | 'anchor' | 'content'
 > & { n: number }
 
 export type AnswerResult =
@@ -72,8 +72,8 @@ export async function answer(
   if (!cited.length) return idk('no_valid_citations')
 
   const citations = cited.map((n) => {
-    const { chunkId, documentId, title, headingPath, page, anchor } = hits[n - 1]
-    return { n, chunkId, documentId, title, headingPath, page, anchor }
+    const { chunkId, documentId, title, headingPath, page, anchor, content } = hits[n - 1]
+    return { n, chunkId, documentId, title, headingPath, page, anchor, content }
   })
   return { answerable: true, answer: text, citations }
 }
