@@ -10,8 +10,8 @@ const fakeEmbed = async (texts: string[]) =>
   texts.map(() => Array.from({ length: 768 }, () => Math.random() - 0.5))
 
 // Needs a real Postgres + pgvector: CI provides one; locally run with DATABASE_URL set.
-describe.skipIf(!schema)('vectorSearch', { timeout: 60_000 }, () => {
-  const { sql, setup, teardown } = schema!
+describe.skipIf(schema.skip)('vectorSearch', { timeout: 60_000 }, () => {
+  const { sql, setup, teardown } = schema
   beforeAll(async () => {
     await setup()
     await ingest(sql, fakeEmbed, { embedModel: 'fake', embedDim: 768 })

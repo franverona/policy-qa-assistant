@@ -7,8 +7,8 @@ const schema = testSchema('search_test')
 const fakeEmbed = async (texts: string[]) => texts.map(() => Array(768).fill(0.1))
 
 // Needs a real Postgres + pgvector: CI provides one; locally run with DATABASE_URL set.
-describe.skipIf(!schema)('fullTextSearch', { timeout: 60_000 }, () => {
-  const { sql, setup, teardown } = schema!
+describe.skipIf(schema.skip)('fullTextSearch', { timeout: 60_000 }, () => {
+  const { sql, setup, teardown } = schema
   const search = (q: string) => fullTextSearch(sql, q, 10)
   beforeAll(async () => {
     await setup()

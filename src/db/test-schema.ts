@@ -1,13 +1,18 @@
 import postgres from 'postgres'
 import { migrate, MIGRATE_LOCK } from './migrate'
 
-// A migrated schema of its own, so a db test never touches the dev data. Undefined without
-// DATABASE_URL (vitest doesn't load .env): pair with describe.skipIf.
+// A migrated schema of its own, so a db test never touches the dev data. Without DATABASE_URL
+// (vitest doesn't load .env) `skip` is true: pair with describe.skipIf(schema.skip). It always
+// returns the object, because vitest still runs a skipped describe's body to collect its tests.
 export function testSchema(name: string) {
   const url = process.env.DATABASE_URL
-  if (!url) return undefined
-  const sql = postgres(url, { onnotice: () => {}, connection: { search_path: `${name}, public` } })
+  // postgres.js connects on the first query, so this client never connects when skipped.
+  const sql = postgres(url ?? 'postgres://localhost/unused', {
+    onnotice: () => {},
+    connection: { search_path: `${name}, public` },
+  })
   return {
+    skip: !url,
     sql,
     async setup() {
       await sql`drop schema if exists ${sql(name)} cascade`

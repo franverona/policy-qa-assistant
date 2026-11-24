@@ -15,9 +15,11 @@
     "corpus:render": "tsx scripts/render-corpus.ts",
     "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
     "ingest": "tsx --env-file-if-exists=.env scripts/ingest.ts",
-    "llm:smoke": "tsx --env-file-if-exists=.env scripts/llm-smoke.ts"
+    "llm:smoke": "tsx --env-file-if-exists=.env scripts/llm-smoke.ts",
+    "rerank:pull": "tsx --env-file-if-exists=.env scripts/rerank-pull.ts"
   },
   "dependencies": {
+    "@huggingface/transformers": "4.3.2",
     "next": "16.4.6",
     "pdfkit": "^0.20.2",
     "postgres": "^4.1.1",
