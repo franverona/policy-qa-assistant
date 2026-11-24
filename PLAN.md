@@ -28,8 +28,8 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 
 ## M3 Chat with citations
 
-- [ ] `m3-answer-pipeline`: prompt, structured output, citation validation, three IDK gates, `/api/ask`
-- [ ] `m3-doc-viewer`: `/docs/[id]` serves PDFs (`#page=N`) and wiki pages (`#anchor`)
+- [x] `m3-answer-pipeline`: prompt, structured output, citation validation, three IDK gates, `/api/ask`
+- [x] `m3-doc-viewer`: `/docs/[id]` serves PDFs (`#page=N`) and wiki pages (`#anchor`)
 - [ ] `m3-chat-ui`: chat page, inline citation chips, source side panel
 
 ## M4 Evals

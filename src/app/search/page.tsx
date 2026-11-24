@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import Form from 'next/form'
 import { Suspense } from 'react'
-import { citeLabel } from '@/answer/prompt'
+import { citeHref, citeLabel } from '@/answer/prompt'
 import { retrieve, TOP } from '@/search/retrieve'
 
 export const metadata: Metadata = { title: 'Search debug · Policy Q&A Assistant' }
@@ -74,7 +74,11 @@ async function Results({ searchParams }: Pick<PageProps<'/search'>, 'searchParam
                     <p className="mt-2 whitespace-pre-wrap text-gray-700">{h.content}</p>
                   </details>
                 </td>
-                <td className="p-2 whitespace-nowrap text-gray-500">{citeLabel(h)}</td>
+                <td className="p-2 whitespace-nowrap">
+                  <a href={citeHref(h)} target="_blank" className="text-blue-700 underline">
+                    {citeLabel(h)}
+                  </a>
+                </td>
               </tr>
             ))}
           </tbody>

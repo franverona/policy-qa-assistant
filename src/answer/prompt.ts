@@ -11,6 +11,10 @@ export const SYSTEM_PROMPT = `You answer questions from Harborline Mutual suppor
 export const citeLabel = (h: Pick<SearchHit, 'documentId' | 'page' | 'anchor'>) =>
   `${h.documentId} ${h.page ? `p.${h.page}` : `#${h.anchor}`}`
 
+// Where that link goes: the /docs viewer, at the cited page or anchor.
+export const citeHref = (h: Pick<SearchHit, 'documentId' | 'page' | 'anchor'>) =>
+  `/docs/${encodeURIComponent(h.documentId)}#${h.page ? `page=${h.page}` : h.anchor}`
+
 // Sources are numbered [1]..[n]; the model cites those numbers, never chunk ids.
 export function buildMessages(question: string, hits: SearchHit[]): Message[] {
   const sources = hits
