@@ -1,17 +1,10 @@
 import type { Metadata } from 'next'
 import Form from 'next/form'
 import { Suspense } from 'react'
-import { getDb } from '@/db/client'
-import { embed } from '@/llm'
-import { hybridSearch } from '@/search/hybrid'
-import { rerank } from '@/search/rerank'
+import { citeLabel } from '@/answer/prompt'
+import { retrieve, TOP } from '@/search/retrieve'
 
 export const metadata: Metadata = { title: 'Search debug · Policy Q&A Assistant' }
-
-// Retrieval knobs (M6 experiments). They move into a shared retrieve() with M3's /api/ask.
-const CANDIDATES = 50 // per list, before fusion
-const FUSED = 20 // fused hits the cross-encoder scores
-const TOP = 5 // what the answer step will see
 
 // Developer page: shows how each chunk got its place (full-text rank, vector rank, RRF score,
 // rerank score) for one query.
@@ -24,15 +17,6 @@ export default function SearchPage({ searchParams }: PageProps<'/search'>) {
       </Suspense>
     </main>
   )
-}
-
-async function timedSearch(query: string) {
-  const t0 = performance.now()
-  const fused = await hybridSearch(getDb(), embed, query, { candidates: CANDIDATES, limit: FUSED })
-  const t1 = performance.now()
-  const hits = await rerank(query, fused)
-  const ms = (a: number, b: number) => Math.round(b - a)
-  return { hits, searchMs: ms(t0, t1), rerankMs: ms(t1, performance.now()) }
 }
 
 async function Results({ searchParams }: Pick<PageProps<'/search'>, 'searchParams'>) {
@@ -52,7 +36,7 @@ async function Results({ searchParams }: Pick<PageProps<'/search'>, 'searchParam
   )
   if (!query) return form
 
-  const { hits, searchMs, rerankMs } = await timedSearch(query)
+  const { hits, searchMs, rerankMs } = await retrieve(query)
 
   return (
     <>
@@ -90,9 +74,7 @@ async function Results({ searchParams }: Pick<PageProps<'/search'>, 'searchParam
                     <p className="mt-2 whitespace-pre-wrap text-gray-700">{h.content}</p>
                   </details>
                 </td>
-                <td className="p-2 whitespace-nowrap text-gray-500">
-                  {h.documentId} {h.page ? `p.${h.page}` : `#${h.anchor}`}
-                </td>
+                <td className="p-2 whitespace-nowrap text-gray-500">{citeLabel(h)}</td>
               </tr>
             ))}
           </tbody>

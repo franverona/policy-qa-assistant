@@ -1,5 +1,5 @@
 import postgres, { type Sql } from 'postgres'
-import { getConfig } from '@/config'
+import { getConfig } from '../config'
 
 let cached: Sql | undefined
 
