@@ -35,3 +35,8 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test
+      # A machine without Postgres must still pass: db tests skip instead of crashing.
+      - name: pnpm test (no database)
+        run: pnpm test
+        env:
+          DATABASE_URL: ''
