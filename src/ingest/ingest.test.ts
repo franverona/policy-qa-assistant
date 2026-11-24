@@ -16,8 +16,8 @@ const opts = { embedModel: 'fake', embedDim: 768 }
 const DOCS = 30
 
 // Needs a real Postgres + pgvector: CI provides one; locally run with DATABASE_URL set.
-describe.skipIf(!schema)('ingest', { timeout: 60_000 }, () => {
-  const { sql: db, setup, teardown } = schema!
+describe.skipIf(schema.skip)('ingest', { timeout: 60_000 }, () => {
+  const { sql: db, setup, teardown } = schema
   beforeAll(setup)
   afterAll(teardown)
 
