@@ -23,7 +23,7 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 - [x] `m2-fulltext-search`: tsvector + `websearch_to_tsquery`
 - [x] `m2-policy-codes`: put the policy code (`HM-END-04`) in front of `heading_path`, so codes are searchable and embedded
 - [x] `m2-vector-search`: pgvector HNSW cosine
-- [ ] `m2-hybrid-rrf`: Reciprocal Rank Fusion
+- [x] `m2-hybrid-rrf`: Reciprocal Rank Fusion
 - [ ] `m2-rerank`: cross-encoder rerank + `/search` debug page
 
 ## M3 Chat with citations

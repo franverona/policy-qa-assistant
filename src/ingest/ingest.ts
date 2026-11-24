@@ -3,11 +3,10 @@ import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 import type { Sql } from 'postgres'
 import { parseSource } from '../corpus/source'
-import type { EmbedKind } from '../llm'
+import type { Embed } from '../llm'
 import { chunk } from './chunk'
 import { parseHtml, parsePdf } from './parse'
 
-type Embed = (texts: string[], kind: EmbedKind) => Promise<number[][]>
 type Options = { embedModel: string; embedDim: number; dir?: string; force?: boolean }
 
 // Loads corpus/sources/*.md (metadata) + corpus/rendered/<id>.pdf|html (text) into the db.

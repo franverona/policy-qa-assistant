@@ -7,6 +7,7 @@ import { postOllama } from './ollama'
 export type Message = { role: 'system' | 'user' | 'assistant'; content: string }
 export type Usage = { inputTokens: number; outputTokens: number }
 export type EmbedKind = 'query' | 'document'
+export type Embed = (texts: string[], kind: EmbedKind) => Promise<number[][]>
 
 type LlmConfig = Pick<
   Config,
