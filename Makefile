@@ -18,6 +18,7 @@ models: .env
 	curl -sf "$$OLLAMA_BASE_URL/api/version" > /dev/null \
 	  || { echo "Ollama not reachable at $$OLLAMA_BASE_URL: start it with 'ollama serve'"; exit 1; }; \
 	ollama pull "$$CHAT_MODEL" && ollama pull "$$EMBED_MODEL"
+	pnpm rerank:pull
 
 # Idempotent: unchanged docs are skipped.
 seed: db models

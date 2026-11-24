@@ -18,13 +18,13 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 - [x] `m1-parse-chunk`: PDF (per page) and HTML (per section) parsers, clause-aware chunker, tests
 - [x] `m1-ingest`: idempotent `pnpm ingest`, `make dev` pulls models and seeds
 
-## M2 Search
+## M2 Search ✅
 
 - [x] `m2-fulltext-search`: tsvector + `websearch_to_tsquery`
 - [x] `m2-policy-codes`: put the policy code (`HM-END-04`) in front of `heading_path`, so codes are searchable and embedded
 - [x] `m2-vector-search`: pgvector HNSW cosine
 - [x] `m2-hybrid-rrf`: Reciprocal Rank Fusion
-- [ ] `m2-rerank`: cross-encoder rerank + `/search` debug page
+- [x] `m2-rerank`: cross-encoder rerank + `/search` debug page
 
 ## M3 Chat with citations
 
