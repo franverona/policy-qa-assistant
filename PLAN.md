@@ -35,7 +35,7 @@ Rules: one PR per bullet, branch named after it (from an up-to-date `main`), ≤
 ## M4 Evals
 
 - [x] `m4-eval-questions`: 55 questions (45 answerable, 10 unanswerable) — fixtures only
-- [ ] `m4-eval-runner`: runner, JSON + Markdown reports with models/config, `score.ts` stub
+- [x] `m4-eval-runner`: runner, JSON + Markdown reports with models/config, `score.ts` stub
 - [ ] `m4-scoring`: scoring logic — **written by Fran**, reviewed by Claude
 - [ ] `m4-baseline`: first report committed, baseline recorded in DECISIONS.md
 
