@@ -16,7 +16,8 @@
     "db:migrate": "tsx --env-file-if-exists=.env scripts/migrate.ts",
     "ingest": "tsx --env-file-if-exists=.env scripts/ingest.ts",
     "llm:smoke": "tsx --env-file-if-exists=.env scripts/llm-smoke.ts",
-    "rerank:pull": "tsx --env-file-if-exists=.env scripts/rerank-pull.ts"
+    "rerank:pull": "tsx --env-file-if-exists=.env scripts/rerank-pull.ts",
+    "eval": "tsx --env-file-if-exists=.env scripts/eval.ts"
   },
   "dependencies": {
     "@huggingface/transformers": "4.3.2",

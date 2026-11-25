@@ -30,6 +30,7 @@ Prerequisites: Docker, Node 22, pnpm, Ollama, gitleaks (`brew install gitleaks`;
 - `/`: chat page. Each question goes to `POST /api/ask` (retrieve → top 5 → cited JSON answer, or IDK with the gate that fired); `[n]` chips open the cited clause in a side panel
 - `/docs/<id>#page=N` or `#anchor`: serves the cited PDF or wiki page
 - `/search?q=…`: retrieval debug page (full-text and vector ranks, RRF and rerank scores per chunk)
+- `pnpm eval`: runs `evals/questions.json` through retrieval + answer (one at a time, ~10 min) and writes `evals/reports/<date>.json` and `.md` with the models and knobs used
 - `make down`: stops containers
 
 ## Checks (run all before opening a PR)
@@ -58,4 +59,4 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 
 ## Current milestone
 
-**M4 Evals**: next PR is `m4-eval-runner`. (M0 Setup, M1 Ingestion, M2 Search and M3 Chat with citations are done.)
+**M4 Evals**: next PR is `m4-scoring`. (M0 Setup, M1 Ingestion, M2 Search and M3 Chat with citations are done.)
