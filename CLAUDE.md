@@ -58,4 +58,4 @@ CI (`.github/workflows/ci.yml`) runs the same four on every PR and on pushes to 
 
 ## Current milestone
 
-**M4 Evals**: next PR is `m4-eval-questions`. (M0 Setup, M1 Ingestion, M2 Search and M3 Chat with citations are done.)
+**M4 Evals**: next PR is `m4-eval-runner`. (M0 Setup, M1 Ingestion, M2 Search and M3 Chat with citations are done.)
